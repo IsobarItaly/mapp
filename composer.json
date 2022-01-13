@@ -1,0 +1,17 @@
+{
+  "name": "isobaritaly/mapp",
+  "type": "project",
+  "description": "MAPP Integration",
+  "keywords": ["isobar", "mapp"],
+  "license": "MIT",
+  "require": {
+    "php": "^8.0",
+    "illuminate/support": "^8.79",
+    "guzzlehttp/guzzle": "^7.4"
+  },
+  "autoload": {
+    "psr-4": {
+      "Dentsu\\": "src/"
+    }
+  }
+}
