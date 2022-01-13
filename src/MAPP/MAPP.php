@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Services;
+namespace Dentsu\MAPP;
 
-use App\Services\MAPP\MAPPUser;
 use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
