@@ -36,6 +36,7 @@ class MAPP
                     'email' => $email,
                 ]
             );
+
         Log::info(json_encode($res->json()));
 
         if (isset($res->json()['errorActor'])) {
@@ -52,31 +53,40 @@ class MAPP
                 $this->endpoint . '/user/create?email=' . $email,
                 $this->buildPayload($payload)
             );
+
+        Log::info(json_encode($res->json()));
+
         if (isset($res->json()['errorActor'])) {
             Log::info(__METHOD__);
             Log::info('error on ' . $this->endpoint . '/user/create?email=' . $email);
+            
+            throw new InvalidArgumentException($res->json()['message']);
         }
+
         return new MAPPUser(...$res->json());
     }
 
     public function sendEmail(string $email, int $templateId, array $parameters)
     {
-        Log::debug(__METHOD__ . ' _ START');
+        Log::info(__METHOD__ . ' _ START');
+
         $mappUser = $this->firstOrCreate($email);
-        Log::debug(json_encode($mappUser));
+        
+        Log::info(json_encode($mappUser));
+        
         $data = [
             'recipientId' => $mappUser->id,
             'messageId' => $templateId,
         ];
-        Log::debug(json_encode($data));
-        Log::debug(json_encode($this->buildPayload($parameters)));
+        
         $res = $this->getClient()
             ->post(
                 $this->endpoint . '/message/sendSingle?' . http_build_query($data),
                 ['parameters' => $this->buildPayload($parameters)]
             );
-        Log::debug(json_encode($res->json()));
-        Log::debug(__METHOD__ . ' _ END');
+        
+        Log::info(json_encode($res->json()));
+        Log::info(__METHOD__ . ' _ END');
     }
 
     private function buildPayload(array $payload)
