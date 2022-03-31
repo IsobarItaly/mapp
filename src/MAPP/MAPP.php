@@ -84,8 +84,7 @@ class MAPP
                 $this->endpoint . '/message/sendSingle?' . http_build_query($data),
                 ['parameters' => $this->buildPayload($parameters)]
             );
-        
-        Log::info(json_encode($res->json()));
+        Log::info('STATUS: ' . json_encode($res->status()) . ' - ' . json_encode($res->json()));
         Log::info(__METHOD__ . ' _ END');
     }
 
