@@ -2,6 +2,7 @@
 
 namespace Dentsu\MAPP;
 
+use InvalidArgumentException;
 use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
