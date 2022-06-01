@@ -67,6 +67,24 @@ class MAPP
         return new MAPPUser(...$res->json());
     }
 
+    public function userUpdate(string $email, array $payload): void
+    {
+        $res = $this->getClient()
+            ->post(
+                $this->endpoint . '/user/updateProfileByEmail?email=' . $email,
+                $this->buildPayload($payload)
+            );
+
+        Log::info(json_encode($res->json()));
+
+        if (isset($res->json()['errorActor'])) {
+            Log::info(__METHOD__);
+            Log::info('error on ' . $this->endpoint . '/user/updateProfileByEmail?email=' . $email);
+            
+            throw new InvalidArgumentException($res->json()['message']);
+        }
+    }
+
     public function sendEmail(string $email, int $templateId, array $parameters)
     {
         Log::info(__METHOD__ . ' _ START');
