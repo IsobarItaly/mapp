@@ -85,6 +85,73 @@ class MAPP
         }
     }
 
+    public function createRelatedRecord(string $email, string $dataset, array $payload): void
+    {
+        $res = $this->getClient()
+            ->post(
+                $this->endpoint . '/relatedData/createRecord',
+                [
+                    'datasetName' => $dataset,
+                    'key' => $email,
+                    'data' => $this->buildPayload($payload),
+                ]
+            );
+        
+            Log::info(json_encode($res->json()));
+
+        if (isset($res->json()['errorActor'])) {
+            Log::info(__METHOD__);
+            Log::info('error on ' . $this->endpoint . '/relatedData/createRecord');
+            
+            throw new InvalidArgumentException($res->json()['message']);
+        }
+    }
+
+    public function updateRelatedRecords(string $email, string $dataset, array $filter, array $payload): void
+    {
+        $res = $this->getClient()
+            ->post(
+                $this->endpoint . '/relatedData/updateRecords',
+                [
+                    'datasetName' => $dataset,
+                    'key' => $email,
+                    'data' => $this->buildPayload($payload),
+                    'filter' => $this->buildPayload($filter),
+                ]
+            );
+        
+            Log::info(json_encode($res->json()));
+
+        if (isset($res->json()['errorActor'])) {
+            Log::info(__METHOD__);
+            Log::info('error on ' . $this->endpoint . '/relatedData/updateRecord');
+            
+            throw new InvalidArgumentException($res->json()['message']);
+        }
+    }
+
+    public function deleteRelatedRecords(string $email, string $dataset, array $filter): void
+    {
+        $res = $this->getClient()
+            ->post(
+                $this->endpoint . '/relatedData/deleteRecords',
+                [
+                    'datasetName' => $dataset,
+                    'key' => $email,
+                    'filter' => $this->buildPayload($filter),
+                ]
+            );
+        
+            Log::info(json_encode($res->json()));
+
+        if (isset($res->json()['errorActor'])) {
+            Log::info(__METHOD__);
+            Log::info('error on ' . $this->endpoint . '/relatedData/deleteRecords');
+            
+            throw new InvalidArgumentException($res->json()['message']);
+        }
+    }
+
     public function sendEmail(string $email, int $templateId, array $parameters)
     {
         Log::info(__METHOD__ . ' _ START');
