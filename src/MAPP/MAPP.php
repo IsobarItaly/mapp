@@ -34,7 +34,7 @@ class MAPP
         if ($mappUser === null) {
             $mappUser = $mappUser === null 
             ? $this->userCreate($email, $payload)
-            : $this->userUpdate($email, $payload)
+            : $this->userUpdate($email, $payload);
         }
     }
 
