@@ -28,6 +28,16 @@ class MAPP
         return $mappUser;
     }
 
+    public function createOrUpdate(string $email, array $payload = []): void
+    {
+        $mappUser = $this->getByEmail($email);
+        if ($mappUser === null) {
+            $mappUser = $mappUser === null 
+            ? $this->userCreate($email, $payload)
+            : $this->userUpdate($email, $payload)
+        }
+    }
+
     public function getByEmail(string $email): ?MAPPUser
     {
         $res = $this->getClient()
