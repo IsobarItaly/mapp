@@ -57,6 +57,50 @@ class MAPP
         return new MAPPUser(...$res->json());
     }
 
+    public function membershipGetByEmail(string $email)
+    {
+        $res = $this->getClient()
+            ->get(
+                $this->endpoint . '/membership/getByEmail',
+                [
+                    'email' => $email,
+                ]
+            );
+        
+        Log::info(json_encode($res->json()));
+
+        if (isset($res->json()['errorActor'])) {
+            return null;
+        }
+
+        return $res->json();
+    }
+
+    public function membershipGet()
+    {
+
+    }
+
+    public function membershipCreate($userId, $groupId)
+    {
+        $res = $this->getClient()
+        ->get(
+            $this->endpoint . '/membership/create',
+            [
+                'userId' => $userId,
+                'groupId' => $groupId,
+            ]
+        );
+    
+        Log::info(json_encode($res->json()));
+
+        if (isset($res->json()['errorActor'])) {
+            return null;
+        }
+
+        return $res->json();
+    }
+
     public function userCreate(string $email, array $payload): MAPPUser
     {
         $res = $this->getClient()
