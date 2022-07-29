@@ -31,11 +31,11 @@ class MAPP
     public function createOrUpdate(string $email, array $payload = []): void
     {
         $mappUser = $this->getByEmail($email);
-        if ($mappUser === null) {
-            $mappUser = $mappUser === null 
+
+        $mappUser === null 
             ? $this->userCreate($email, $payload)
             : $this->updateProfile($mappUser->id, $payload);
-        }
+    
     }
 
     public function getByEmail(string $email): ?MAPPUser
