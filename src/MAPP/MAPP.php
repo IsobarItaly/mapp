@@ -121,6 +121,24 @@ class MAPP
         return new MAPPUser(...$res->json());
     }
 
+    public function updateProfile($userId, $data): void
+    {
+        $res = $this->getClient()
+        ->post(
+            $this->endpoint . '/user/updateProfile?userId=' . $userId,
+            $this->buildPayload($payload)
+        );
+
+        Log::info(json_encode($res->json()));
+
+        if (isset($res->json()['errorActor'])) {
+            Log::info(__METHOD__);
+            Log::info('error on ' . $this->endpoint . '/user/updateProfile?userId=' . $userId);
+            
+            throw new InvalidArgumentException($res->json()['message']);
+        }
+    }
+
     public function userUpdate(string $email, array $payload): void
     {
         $res = $this->getClient()
