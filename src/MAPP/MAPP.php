@@ -121,7 +121,7 @@ class MAPP
         return new MAPPUser(...$res->json());
     }
 
-    public function updateProfile($userId, $data): void
+    public function updateProfile($userId, $payload): void
     {
         $res = $this->getClient()
         ->post(
