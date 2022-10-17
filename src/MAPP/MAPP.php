@@ -236,6 +236,9 @@ class MAPP
             'recipientId' => $mappUser->id,
             'messageId' => $templateId,
         ];
+
+        Log::info(json_encode($data));
+        Log::info(json_encode($parameters));
         
         $res = $this->getClient()
             ->post(
